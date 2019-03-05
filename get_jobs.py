@@ -3,34 +3,33 @@ from dotenv import load_dotenv
 from os import getenv
 from math import ceil
 from terminaltables import DoubleTable
-import copy
 
 
 def fetch_jobs_from_hh(url, params, language):
-    copy_params = params.copy()
-    copy_params['text'] = language
-    copy_params['page'] = 0
-    first_page_response = requests.get(url, params=copy_params).json()
+    params_copy = params.copy()
+    params_copy['text'] = language
+    params_copy['page'] = 0
+    first_page_response = requests.get(url, params=params_copy).json()
     pages = first_page_response['pages']
     job_page_list = []
-    while copy_params['page'] < pages:
-        job_page_list.append(requests.get(url, params=copy_params).json())
-        copy_params['page'] += 1
+    while params_copy['page'] < pages:
+        job_page_list.append(requests.get(url, params=params_copy).json())
+        params_copy['page'] += 1
     return (job_page_list, language)
 
 
 def fetch_jobs_from_sj(url, headers, params, language):
     jobs = []
-    copy_params = params.copy()
-    copy_params['keyword'] = language
-    response = requests.get(url, headers=headers, params=copy_params).json()
+    params_copy = params.copy()
+    params_copy['keyword'] = language
+    response = requests.get(url, headers=headers, params=params_copy).json()
     total_jobs = response['total']
     page_count = ceil(total_jobs / 100)
     jobs.extend(response['objects'])
     if page_count > 0:
         for page in range(1, page_count):
-            copy_params['page'] = page
-            response = requests.get(url, headers=headers, params=copy_params).json()
+            params_copy['page'] = page
+            response = requests.get(url, headers=headers, params=params_copy).json()
             jobs.extend(response['objects'])
     return (language, jobs, total_jobs)
 
