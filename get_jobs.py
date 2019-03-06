@@ -39,9 +39,10 @@ def get_programming_language_statistics_for_sj(language, job_list, total_jobs):
     total_salary = 0
     for job in job_list:
         salary = get_predict_rub_salary_sj(job['payment_from'], job['payment_to'])
-        if salary:
-            vacancies_processed += 1
-            total_salary += salary
+        if not salary:
+            continue
+        vacancies_processed += 1
+        total_salary += salary
 
     programming_language_statistics = (
             language,
@@ -58,9 +59,15 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
     for job_page in job_page_list:
         jobs = job_page['items']
         for job in jobs:
-            if get_predict_rub_salary_hh(job['salary']):
-                vacancies_processed += 1
-                total_salary += get_predict_rub_salary_hh(job['salary'])
+            salary = job['salary']
+            if not salary:
+                continue
+
+            if not get_predict_rub_salary_sj(salary['from'], salary['to']):
+                continue
+                
+            vacancies_processed += 1
+            total_salary += get_predict_rub_salary_sj(salary['from'], salary['to'])
 
     programming_language_statistics = (
         language,
@@ -71,25 +78,22 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
     return programming_language_statistics
 
 
-def get_predict_rub_salary_hh(salary_info):
-    if salary_info:
-        if salary_info['from'] and salary_info['to']:
-            return (salary_info['from'] + salary_info['to'])/2
-        elif salary_info['from']:
-            return salary_info['from'] * 1.2
-        else:
-            return salary_info['to'] * 0.8
-    return None
-
-
 def get_predict_rub_salary_sj(payment_from, payment_to):
-    if payment_from != 0 or payment_to != 0:
-        if payment_from != 0 and payment_to != 0:
-            return (payment_from + payment_to)/2
-        elif payment_from != 0:
-            return payment_from * 1.2
+    salary_from = payment_from
+    salary_to = payment_to
+
+    if salary_from is None:
+        salary_from = 0
+    if salary_to is None:
+        salary_to = 0
+
+    if salary_from != 0 or salary_to != 0:
+        if salary_from != 0 and salary_to != 0:
+            return (salary_from + salary_to)/2
+        elif salary_from != 0:
+            return salary_from * 1.2
         else:
-            return payment_to * 0.8
+            return salary_to * 0.8
     return None
 
 
