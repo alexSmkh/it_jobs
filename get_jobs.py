@@ -38,7 +38,7 @@ def get_programming_language_statistics_for_sj(language, job_list, total_jobs):
     vacancies_processed = 0
     total_salary = 0
     for job in job_list:
-        salary = get_predict_rub_salary_sj(job['payment_from'], job['payment_to'])
+        salary = get_predict_rub_salary(job['payment_from'], job['payment_to'])
         if not salary:
             continue
         vacancies_processed += 1
@@ -63,11 +63,11 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
             if not salary:
                 continue
 
-            if not get_predict_rub_salary_sj(salary['from'], salary['to']):
+            if not get_predict_rub_salary(salary['from'], salary['to']):
                 continue
-                
+
             vacancies_processed += 1
-            total_salary += get_predict_rub_salary_sj(salary['from'], salary['to'])
+            total_salary += get_predict_rub_salary(salary['from'], salary['to'])
 
     programming_language_statistics = (
         language,
@@ -78,7 +78,7 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
     return programming_language_statistics
 
 
-def get_predict_rub_salary_sj(payment_from, payment_to):
+def get_predict_rub_salary(payment_from, payment_to):
     salary_from = payment_from
     salary_to = payment_to
 
