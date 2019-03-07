@@ -79,22 +79,12 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
 
 
 def get_predict_rub_salary(payment_from, payment_to):
-    salary_from = payment_from
-    salary_to = payment_to
-
-    if salary_from is None:
-        salary_from = 0
-    if salary_to is None:
-        salary_to = 0
-
-    if salary_from != 0 or salary_to != 0:
-        if salary_from != 0 and salary_to != 0:
-            return (salary_from + salary_to)/2
-        elif salary_from != 0:
-            return salary_from * 1.2
-        else:
-            return salary_to * 0.8
-    return None
+    if payment_from and payment_to:
+        return (payment_from + payment_to)/2
+    elif payment_from:
+        return payment_from * 1.2
+    elif payment_to:
+        return  payment_to * 0.8
 
 
 def pretty_print(statistics, title):
