@@ -1,6 +1,6 @@
 import requests
 from math import ceil
-from main import get_average_salary
+from data_processing_functions import get_average_salary
 
 
 def fetch_jobs_from_sj(url, headers, params, language):
@@ -19,23 +19,14 @@ def fetch_jobs_from_sj(url, headers, params, language):
     return (jobs, total_jobs)
 
 
-def get_programming_language_statistics_for_sj(job_list, total_jobs, language):
-    vacancies_processed = 0
-    total_salary = 0
+def get_salaries_from_sj(job_list):
+    salaries = []
     for job in job_list:
-        average_salary = get_average_salary(job['payment_from'], job['payment_to'])
+        salaries.append(get_average_salary(
+            job['payment_from'],
+            job['payment_to'])
+        )
+    return salaries
 
-        if not average_salary:
-            continue
 
-        vacancies_processed += 1
-        total_salary += average_salary
-
-    programming_language_statistics = (
-            language,
-            total_jobs,
-            vacancies_processed,
-            int(total_salary/vacancies_processed)
-    )
-    return programming_language_statistics
 
