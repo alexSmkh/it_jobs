@@ -22,7 +22,7 @@
 
 ### Как запустить
 ```bash
-python3 get_jobs.py
+python3 main.py
 ```
  
  ### Цель проекта
