@@ -22,6 +22,7 @@ def get_programming_language_statistics_for_hh(job_page_list, language):
         jobs = job_page['items']
         for job in jobs:
             salary = job['salary']
+
             if not salary:
                 continue
 

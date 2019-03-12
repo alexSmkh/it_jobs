@@ -23,11 +23,13 @@ def get_programming_language_statistics_for_sj(job_list, total_jobs, language):
     vacancies_processed = 0
     total_salary = 0
     for job in job_list:
-        salary = get_average_salary(job['payment_from'], job['payment_to'])
-        if not salary:
+        average_salary = get_average_salary(job['payment_from'], job['payment_to'])
+
+        if not average_salary:
             continue
+
         vacancies_processed += 1
-        total_salary += salary
+        total_salary += average_salary
 
     programming_language_statistics = (
             language,
@@ -36,3 +38,4 @@ def get_programming_language_statistics_for_sj(job_list, total_jobs, language):
             int(total_salary/vacancies_processed)
     )
     return programming_language_statistics
+
