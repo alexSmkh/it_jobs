@@ -16,10 +16,10 @@ def fetch_jobs_from_sj(url, headers, params, language):
             params_copy['page'] = page
             response = requests.get(url, headers=headers, params=params_copy).json()
             jobs.extend(response['objects'])
-    return (language, jobs, total_jobs)
+    return (jobs, total_jobs)
 
 
-def get_programming_language_statistics_for_sj(language, job_list, total_jobs):
+def get_programming_language_statistics_for_sj(job_list, total_jobs, language):
     vacancies_processed = 0
     total_salary = 0
     for job in job_list:

@@ -12,7 +12,7 @@ def fetch_jobs_from_hh(url, params, language):
     while params_copy['page'] < pages:
         job_page_list.append(requests.get(url, params=params_copy).json())
         params_copy['page'] += 1
-    return (job_page_list, language)
+    return job_page_list
 
 
 def get_programming_language_statistics_for_hh(job_page_list, language):

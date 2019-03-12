@@ -1,4 +1,3 @@
-# from terminaltables import DoubleTable
 from dotenv import load_dotenv
 from os import getenv
 from get_job_from_hh import *
@@ -26,17 +25,25 @@ if __name__ == '__main__':
     statistics_from_hh = []
 
     for lang in top_programming_languages:
-        statistics_from_sj.append(
-            get_programming_language_statistics_for_sj(
-                *fetch_jobs_from_sj(
-                    url_for_sj,
-                    header_for_sj,
-                    params_for_sj,
-                    lang))
-        )
-        statistics_from_hh.append(
-            get_programming_language_statistics_for_hh(
-                *fetch_jobs_from_hh(url_for_hh, params_for_hh, lang)))
+        job_list_from_sj, count_of_jobs = fetch_jobs_from_sj(
+            url_for_sj,
+            header_for_sj,
+            params_for_sj,
+            lang)
+
+        job_list_from_hh = fetch_jobs_from_hh(
+            url_for_hh,
+            params_for_hh,
+            lang)
+
+        statistics_from_hh.append(get_programming_language_statistics_for_hh(
+            job_list_from_hh,
+            lang))
+
+        statistics_from_sj.append(get_programming_language_statistics_for_sj(
+            job_list_from_sj,
+            count_of_jobs,
+            lang))
 
     pretty_print(statistics_from_sj, 'SuperJob')
     pretty_print(statistics_from_hh, 'HeadHunter')
