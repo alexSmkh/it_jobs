@@ -19,9 +19,9 @@ def fetch_jobs_from_sj(url, headers, params, language):
     return (jobs, total_jobs)
 
 
-def get_salaries_from_sj(job_list):
+def get_salaries_from_sj(jobs):
     salaries = []
-    for job in job_list:
+    for job in jobs:
         salaries.append(get_average_salary(
             job['payment_from'],
             job['payment_to'])
