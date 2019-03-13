@@ -11,14 +11,10 @@ def get_average_salary(minimum_value, maximum_value):
 
 
 def get_statistics(language, count_vacancies, salaries):
-    vacancies_processed = 0
-    total_salary = 0
-    for salary in salaries:
-        if not salary:
-            continue
-        vacancies_processed += 1
-        total_salary += salary
-    average_salary_for_language = int(total_salary/vacancies_processed)
+    specified_salaries = [salary for salary in salaries if salary]
+    vacancies_processed = len(specified_salaries)
+    average_salary_for_language = int(max(specified_salaries)/vacancies_processed)
+
     return (
         language,
         count_vacancies,
