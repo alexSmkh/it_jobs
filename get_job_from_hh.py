@@ -24,7 +24,8 @@ def get_salaries_from_hh(job_pages):
             salary = job['salary']
             if not salary:
                 continue
-            if not get_average_salary(salary['from'], salary['to']):
+            average_salary = get_average_salary(salary['from'], salary['to'])
+            if not average_salary:
                 continue
-            salaries.append(get_average_salary(salary['from'], salary['to']))
+            salaries.append(average_salary)
     return salaries
