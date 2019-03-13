@@ -18,8 +18,6 @@ def get_statistics(language, count_vacancies, salaries):
             continue
         vacancies_processed += 1
         total_salary += salary
-        vacancies_processed += 1
-        total_salary += salary
     average_salary_for_language = int(total_salary/vacancies_processed)
     return (
         language,
