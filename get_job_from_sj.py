@@ -1,6 +1,6 @@
 import requests
 from math import ceil
-from data_processing_functions import get_average_salary
+from data_processing_functions import get_probable_salary
 
 
 def fetch_jobs_from_sj(url, headers, params, language):
@@ -22,7 +22,7 @@ def fetch_jobs_from_sj(url, headers, params, language):
 def get_salaries_from_sj(jobs):
     salaries = []
     for job in jobs:
-        salaries.append(get_average_salary(
+        salaries.append(get_probable_salary(
             job['payment_from'],
             job['payment_to'])
         )

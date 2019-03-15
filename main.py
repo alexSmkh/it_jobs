@@ -48,7 +48,6 @@ def main():
         statistics_from_hh.append(
             get_statistics(lang, count_of_jobs_hh, salaries_from_hh)
         )
-
     pretty_print(statistics_from_sj, 'SuperJob')
     pretty_print(statistics_from_hh, 'HeadHunter')
 

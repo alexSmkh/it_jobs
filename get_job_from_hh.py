@@ -1,5 +1,6 @@
 import requests
-from data_processing_functions import get_average_salary
+from data_processing_functions import get_probable_salary
+from itertools import chain
 
 
 def fetch_jobs_from_hh(url, params, language):
@@ -9,11 +10,13 @@ def fetch_jobs_from_hh(url, params, language):
     first_page_response = requests.get(url, params=params_copy).json()
     pages = first_page_response['pages']
     total_jobs = first_page_response['found']
-    job_page_list = []
+    job_list = []
     while params_copy['page'] < pages:
-        job_page_list.append(requests.get(url, params=params_copy).json())
+        page = requests.get(url, params=params_copy).json()
+        job_list.append(page['items'])
         params_copy['page'] += 1
-    return (job_page_list, total_jobs)
+    pretty_job_list = chain.from_iterable(job_list)
+    return (pretty_job_list, total_jobs)
 
 
 def get_salaries_from_hh(job_pages):
