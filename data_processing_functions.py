@@ -13,7 +13,7 @@ def get_probable_salary(minimum_value, maximum_value):
 def get_statistics(language, count_vacancies, salaries):
     specified_salaries = [salary for salary in salaries if salary]
     vacancies_processed = len(specified_salaries)
-    average_salary_for_language = int(max(specified_salaries)/vacancies_processed)
+    average_salary_for_language = int(sum(specified_salaries)/vacancies_processed)
 
     return (
         language,
