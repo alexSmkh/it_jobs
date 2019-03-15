@@ -20,13 +20,11 @@ def fetch_jobs_from_sj(url, headers, params, language):
 
 
 def get_salaries_from_sj(jobs):
-    salaries = []
-    for job in jobs:
-        salaries.append(get_probable_salary(
-            job['payment_from'],
-            job['payment_to'])
-        )
-    return salaries
+    probably_salaries = [
+        get_probable_salary(job['payment_from'], job['payment_to'])
+        for job in jobs
+    ]
+    return probably_salaries
 
 
 
