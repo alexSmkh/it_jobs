@@ -1,7 +1,7 @@
 from terminaltables import DoubleTable
 
 
-def get_average_salary(minimum_value, maximum_value):
+def get_probable_salary(minimum_value, maximum_value):
     if minimum_value and maximum_value:
         return (minimum_value + maximum_value) / 2
     elif minimum_value:
