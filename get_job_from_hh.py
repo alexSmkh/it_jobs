@@ -19,16 +19,9 @@ def fetch_jobs_from_hh(url, params, language):
     return (pretty_job_list, total_jobs)
 
 
-def get_salaries_from_hh(job_pages):
-    salaries = []
-    for job_page in job_pages:
-        jobs = job_page['items']
-        for job in jobs:
-            salary = job['salary']
-            if not salary:
-                continue
-            average_salary = get_average_salary(salary['from'], salary['to'])
-            if not average_salary:
-                continue
-            salaries.append(average_salary)
-    return salaries
+def get_salaries_from_hh(jobs):
+    probable_salaries = [
+        get_probable_salary(job['salary']['from'], job['salary']['to'])
+        for job in jobs if job['salary']
+    ]
+    return probable_salaries
