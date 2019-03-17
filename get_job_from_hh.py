@@ -3,7 +3,11 @@ from data_processing_functions import get_probable_salary
 from itertools import chain
 
 
-def fetch_jobs_from_hh(url, params, language):
+def fetch_jobs_from_hh(language):
+    url = 'https://api.hh.ru/vacancies'
+    area_code_moscow_for_hh = 1
+    params = {'area': area_code_moscow_for_hh, 'currency': 'RUR'}
+
     params_copy = params.copy()
     params_copy['text'] = language
     params_copy['page'] = 0
