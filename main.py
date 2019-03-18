@@ -4,9 +4,11 @@ from get_job_from_sj import get_salaries_from_sj
 from get_job_from_sj import fetch_jobs_from_sj
 from data_processing_functions import pretty_print
 from data_processing_functions import get_statistics
+from dotenv import load_dotenv
 
 
 def main():
+    load_dotenv()
     top_programming_languages = [
         'JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'C++', 'C#', 'Go',
         'Ruby', 'Scala']

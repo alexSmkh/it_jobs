@@ -1,12 +1,10 @@
 import requests
-from dotenv import load_dotenv
 from os import getenv
 from math import ceil
 from data_processing_functions import get_probable_salary
 
 
 def fetch_jobs_from_sj(language):
-    load_dotenv()
     url = 'https://api.superjob.ru/2.0/vacancies/'
     secret_key = getenv('KEY')
     params = {'count': 100, 'town': 'Москва'}
